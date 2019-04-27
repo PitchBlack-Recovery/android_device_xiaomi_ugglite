@@ -14,15 +14,24 @@
 # limitations under the License.
 #
 
-# Specify phone tech before including full_phone
-$(call inherit-product, vendor/omni/config/gsm.mk)
+# Release name
+PRODUCT_RELEASE_NAME := ugglite
 
-$(call inherit-product, device/xiaomi/ugglite/full_ugglite.mk)
+$(call inherit-product, build/target/product/embedded.mk)
 
 # Inherit some common Omni stuff.
-$(call inherit-product, vendor/omni/config/common.mk)
+$(call inherit-product, vendor/pb/config/common.mk)
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.keystore=msm8937
+
+# Kernel
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/prebuilt/Image.gz-dtb:kernel
+
+# Device identifier. This must come after all inclusions
+PRODUCT_DEVICE := ugglite
 PRODUCT_NAME := omni_ugglite
-
-PRODUCT_SYSTEM_PROPERTY_BLACKLIST += \
-    ro.product.model
+PRODUCT_BRAND := Xiaomi
+PRODUCT_MODEL := Redmi Note 5A Lite
+PRODUCT_MANUFACTURER := Xiaomi
